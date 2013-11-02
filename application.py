@@ -1,19 +1,15 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask, render_template, redirect
+app = Flask(__name__, static_url_path ='/static')
 
 @app.route('/')
-def index():
-	if request.method == 'POST':
-
-    return 	'''
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
-
+def index():	
+	return render_template('index.html')
+	
+@app.route('/css/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+        return redirect("/static/"+path)
+        
 if __name__ == '__main__':
     app.run()
 
-def createSession(apikey, country, currency, locale, originPlace, destinationPlace, outboundDate,
-					inboundDate = "", locationSchema = "", cabinClass = "", adults = "", children = "", infants = ""):
