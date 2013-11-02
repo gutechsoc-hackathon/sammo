@@ -1,8 +1,5 @@
 import urllib, urllib2, json
 
-#Expects a list of flightIDS
-def randFlight(flightIDs): return random.choice(flightIDS)
-
 # DEPRECATED
 # #Expects a country, the dictionary and a list
 # #Modifies the itineraries list to remove the itineraries that
