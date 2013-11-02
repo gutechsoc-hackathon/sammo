@@ -93,7 +93,7 @@ def findCityCountryStart(livePriceResponse):
         cityStart = 0
         countryStart = 0
         temp = 0
-        while(country==0 and temp<len(livePriceResponse['Places'])):
+        while(countryStart==0 and temp<len(livePriceResponse['Places'])):
                 if(livePriceResponse['Places'][temp]['Type'] == "City"):
                         cityStart = temp
                 if(livePriceResponse['Places'][temp]['Type'] == "Country"):
@@ -106,7 +106,7 @@ def findCityCountryStart(livePriceResponse):
         
         return cityStart, countryStart
 
-def createSession(apikey, country, currency, originPlace, destinationPlace, outboundDate, locale="en-GB",\
+def createSession(country, currency, originPlace, destinationPlace, outboundDate, apikey="hck55686622578671415146356618825", locale="en-GB",\
                                         inboundDate = "", locationSchema = "Iata", cabinClass = "Economy", adults = "1", children = "0", infants = "0"):
         url = 'http://partners.api.skyscanner.net/apiservices/pricing/v1.0'
         values = {      'apikey' : apikey,
@@ -123,7 +123,7 @@ def createSession(apikey, country, currency, originPlace, destinationPlace, outb
                                 'infants' : infants
                         }
         if (inboundDate != ""):
-                data[inbounddate] = inboundDate
+                values['inboundate'] = inboundDate
         headers = { 'Content-Type' : 'application/x-www-form-urlencoded' }
         data = urllib.urlencode(values)
         request = urllib2.Request(url, data=data, headers=headers)
