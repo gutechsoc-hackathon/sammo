@@ -1,4 +1,4 @@
-import helpers
+import json, helpers, random
 
 
 ## get country data
@@ -27,11 +27,23 @@ leavingDate = '2013-12-06'
 # print response
 # print session+'\n'
 
+f = open('airportJSON.txt', 'r')
+fileString = f.read()
+f.close()
+airports = json.loads(fileString)
+
+#print random.choice(airports['uk'])
+
 leavingAirport = 'edi'
-destination = 'lgw'
+destination = random.choice(airports['uk'])
 leavingDate = '2013-11-09'
 inboundDate = '2013-11-16'
+ 
 session = helpers.createSession(homeCountry, homeCurrency, leavingAirport, destination, leavingDate, inboundDate=inboundDate)
 response = helpers.getLivePriceResponse(session)
 
-print helpers.findCityCountryStart(response)
+print session
+print destination + '\n'
+print response['Query']['DestinationPlace']+'\n'
+if (len(response['Itineraries']) != 0 ):
+	print response['Itineraries'][0]['PricingOptions'][0]['Price']
