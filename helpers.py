@@ -1,4 +1,7 @@
 import urllib2, json
+#Expects a list of flightIDS
+def randFlight(flightIDs):
+	random.choice(flightIDS)
 
 def createSession(apikey, country, currency, originPlace, destinationPlace, outboundDate, locale="en-GB",\
 					inboundDate = "", locationSchema = "lata", cabinClass = "Economy", adults = "1", children = "0", infants = "0"):
