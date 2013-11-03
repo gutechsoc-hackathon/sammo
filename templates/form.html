@@ -23,6 +23,7 @@
 				</div>
 			</div>
 		</form>
+		<div id="display"></div>
 	</div>
 		<script>
 $(document).ready(function() {
@@ -37,6 +38,7 @@ function send_flight_req() {
     success: function(response)
     {
         console.log(response)
+        $("#display").html(response)
     }
   });
 }

@@ -13,9 +13,8 @@ def catch_all(path):
 
 @app.route('/get_flight_data', methods=['POST'])
 def flight_data():
-  request.view_args()
+  dc = request.form.get("depart-country")
   return "hi"
 
 if __name__ == '__main__':
     app.run(debug=True)
-
