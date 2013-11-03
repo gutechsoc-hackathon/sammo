@@ -1,24 +1,15 @@
-<<<<<<< HEAD
-def randFlight(flightIDs):
-	
-=======
-from flask import Flask
+from flask import Flask, render_template, redirect
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-	if request.method == 'POST':
-
-    return 	'''
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
+	return render_template("index.html")
+@app.route('/css/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+	return redirect("/static/"+path)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True, port = 80)
 
-def createSession(apikey, country, currency, locale, originPlace, destinationPlace, outboundDate,
-					inboundDate = "", locationSchema = "", cabinClass = "", adults = "", children = "", infants = ""):
->>>>>>> 24090bb2c8e7d73b7b13759b133d657fa39e99c4
+
