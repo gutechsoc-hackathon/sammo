@@ -2,10 +2,10 @@ import json, helpers, random
 
 #
 ## get input from user
-## get cities in country
-## choose a random city from country
-## get airport IATA codes in city
-## for each airport
+## get cities in country 									Michael
+## choose a random city from homeCountry					random.choice[cityList]
+## get airport IATA codes in cityList 						
+## for each airport 										Andrew
 ## 		open the session with data for that city
 ## 		get the data
 ##		if there are no flights available

@@ -1,13 +1,61 @@
 import urllib, urllib2, json
 
+def run(input):
+    pass
 
-#Expects a max range, the dictionary and a sorted list(by price)
-def inPriceRange(max, livePriceResponse, itineraries):
+## for each airport                                         Andrew
+##      open the session with data for that city
+##      get the data
+##      if there are no flights available
+##          remove IATA code from list of airports
+##      else
+##          get the cheapest flight for airport and info of flight
+
+#Gets the cheapest flight to each airport
+def findMinFlightCost(dictionaryOfIATA, homeCountry, homeCurrency, leavingAirport, leavingDate):
+    for IATA in dictionaryOfIATA.keys():
+        session = helpers.createSession(homeCountry, homeCurrency, leavingAirport, IATA, leavingDate)
+        response = helpers.getLivePriceResponse(session)
+        if(len(response['Itineraries']) == 0):
+            del dictionaryOfIATA[IATA]
+        else:
+            dictionaryOfIATA[IATA]['Price'] = response['Itineraries'][0]['PricingOptions'][0]['Price']
+
+            ##### FIND THE CARRIER ###
+            #outboud has the outbound ID
+            outbound = response['Itineraries'][IATA]['OutboundLegId']
+            #Get the index of the leg that matches the outboundID
+            legIndex = getID(response['Legs'], outbound)
+            if(legIndex < 0):
+                return -1
+            #Get the departure time from the leg
+            dictionaryOfIATA[IATA]['DepartureTime'] = response['Legs'][legIndex]['Departure']
+            
+            #Get the carrier ID from the leg
+            carrierID = response['Legs'][legIndex]['Carriers'][0]
+            #Get the index of the carrier that matches the carrierID
+            carrierIndex = getID(response['Carriers'], carrierID)
+            if(carrierIndex < 0):
+                return  -1
+            #Get the Carrier's Name and Image
+            dictionaryOfIATA[IATA]['CarrierName'] = response['Carriers'][carrierIndex]['Name']
+            dictionaryOfIATA[IATA]['CarrierURL'] = response['Carriers']['ImageUrl']
+
+    return dictionaryOfIATA
+
+# Pass in a list that you wish to search for the ID
+def getID(list, ID):
     counter = 0
-    for i in itineraries:
-        if (max < livePriceResponse['Itineraries'][i]['PricingOptions'][0]['Price']):
-            itineraries[i] = []
-    return itineraries
+    #Loop through the legs until it matches the outbound ID
+    while(list[counter]['Id'] != ID and counter<len(list)):
+        counter+=1
+    #Error checking, will trigger if you have reached end of loop
+    #and you haven't found the leg
+    if(list[counter]['Id'] != ID):
+        print "Error: getID, " + ID
+        return -1
+    return counter            
+
 
 
 def createSession(country, currency, originPlace, destinationPlace, outboundDate, apikey="hck55686622578671415146356618825", locale="en-GB",\
@@ -42,6 +90,14 @@ def getLivePriceResponse(location):
         rawJson = response.read()
         Json = json.loads(rawJson)
         return Json
+
+#Expects a max range, the dictionary and a sorted list(by price)
+def inPriceRange(max, livePriceResponse, itineraries):
+    counter = 0
+    for i in itineraries:
+        if (max < livePriceResponse['Itineraries'][i]['PricingOptions'][0]['Price']):
+            itineraries[i] = []
+    return itineraries
         
 # DEPRECATED
 # #Expects a country, the dictionary and a list
