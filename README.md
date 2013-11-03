@@ -4,7 +4,7 @@ Challenge description in SkyscannerChallenge.txt
 
 Run application.py to run start hosting the webpage.
 
-PLAN, World tour planner
+PLAN
 ==========
 User chooses their position
 
