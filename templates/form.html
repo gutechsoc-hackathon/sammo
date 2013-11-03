@@ -1,0 +1,44 @@
+<!-- Contact Form -->
+<div class="wrapper style1" style="padding-left: 20%; padding-right: 20%">
+		<form id="flight-form">
+			<div>
+				<div class="row half">
+					<div class="6u">
+						<input type="text" class="text" name="depart-airport" id="depart-airport" placeholder="Depart from..." />
+						<input type="text" class="text" name="depart-country" id="depart-country" placeholder="Country" />
+						<input type="text" class="text" name="depart-date" id="depart-date" placeholder="Date of departure" />
+					</div>
+					<div class="6u">
+						<input type="text" class="text" name="arrive-airport" id="arrive-airport" placeholder="Arrive at..." />
+						<input type="text" class="text" name="arrive-country" id="arrive-country" placeholder="Country" />
+						<input type="text" class="text" name="arrive-date" id="arrive-date" placeholder="Date of arrival" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="12u">
+						<ul class="actions">
+							<li><input class="button button-style1" value="Send" onclick="send_flight_req()"/></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+		<script>
+$(document).ready(function() {
+    $("#depart-date").datepicker();
+    $("#arrive-date").datepicker();
+})
+function send_flight_req() {
+	$.ajax({
+    url : "/get_flight_data",
+    type: "POST",
+    data : $("#flight-form").serialize(),
+    success: function(response)
+    {
+        console.log(response)
+    }
+  });
+}
+	</script>
+<!-- /Contact Form -->

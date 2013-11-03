@@ -17,6 +17,7 @@
 		<script src="/static/js/skel.min.js"></script>
 		<script src="/static/js/skel-panels.min.js"></script>
 		<script src="/static/js/init.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="/static/css/skel-noscript.css" /> 
 			<link rel="stylesheet" href="/static/css/style.css" />
@@ -69,96 +70,9 @@
 		<!-- Banner -->
 			<div id="banner">
 				<h2>Are you ready for an <strong>Adventure?</strong></h2>
-				<span class="byline">
-					Have you ever struggled to select a holiday destination? With the Random Flight Generator why bother?! We'll do it for you! Just tell us where you're leaving from, a country you really want to go to and we'll randomly select an airport within your price budget. If you're feeling really adventurous leave the country blank and we'll put you somewhere random in the world! You never know, a random holiday might be the best holiday you ever have!
-				</span>
+				{% include "form.html" %}
 			</div>
-		<!-- Carousel -->
-			<div class="carousel">
-				<div class="reel">
-
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Bueller-III-351975087" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Pulvinar sagittis congue</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Disco-351602759" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Fermentum sagittis proin</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/The-Patina-of-Time-and-Tide-352128094" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Sed quis rhoncus placerat</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Cityparts-XVIII-350427779" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Ultrices urna sit lobortis</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Vine-Country-381350120" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Varius magnis sollicitudin</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Bueller-III-351975087" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Pulvinar sagittis congue</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Disco-351602759" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Fermentum sagittis proin</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/The-Patina-of-Time-and-Tide-352128094" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Sed quis rhoncus placerat</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Cityparts-XVIII-350427779" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Ultrices urna sit lobortis</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-				
-					<article>
-						<a href="http://mdomaradzki.deviantart.com/art/Vine-Country-381350120" class="image featured"><img src="http://jasonlefkowitz.net/wp-content/uploads/2013/07/cats-16140154-1920-1080.jpg" alt="" /></a>
-						<header>
-							<h3><a href="#">Varius magnis sollicitudin</a></h3>
-						</header>
-						<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>							
-					</article>
-
-				</div>
-			</div>
+		
 			
 		<!-- Main -->
 			<div class="wrapper style2">
