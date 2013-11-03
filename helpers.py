@@ -1,5 +1,13 @@
 import urllib, urllib2, json, random, MySQLdb as mdb
 
+## for each airport
+##      open the session with data for that city
+##      get the data
+##      if there are no flights available
+##          remove IATA code from list of airports
+##      else
+##          get the cheapest flight for airport and info of flight
+
 con = mdb.connect('54.200.253.128:3306', 'guhack', 'sammo', 'air_data')
 cur = con.cursor()
 
@@ -15,16 +23,7 @@ def run(input):
 	findMinFlightCosts(airportData['prices'], input['HomeCountry'], input['AirportLeavingFrom'], input['DepartureDate'])
 	return airportData
 
-def run(input):
-    pass
 
-## for each airport                                         Andrew
-##      open the session with data for that city
-##      get the data
-##      if there are no flights available
-##          remove IATA code from list of airports
-##      else
-##          get the cheapest flight for airport and info of flight
 
 #Gets the cheapest flight to each airport
 def findMinFlightCost(dictionaryOfIATA, homeCountry, homeCurrency, leavingAirport, leavingDate):
