@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect,request
+import helpers
 app = Flask(__name__, static_url_path ='/static')
 
 @app.route('/')
@@ -13,8 +14,12 @@ def catch_all(path):
 
 @app.route('/get_flight_data', methods=['POST'])
 def flight_data():
+  da = request.form.get("depart-airport")
   dc = request.form.get("depart-country")
-  return "hi"
+  dd = request.form.get("depart-date")
+  ac = request.form.get("arrive-country")
+  input = {'countryTo': ac, 'leavingAirport': da, 'departDate': dd}
+  return "helpers.run(input)"
 
 if __name__ == '__main__':
     app.run(debug=True)

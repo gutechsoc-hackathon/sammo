@@ -12,7 +12,7 @@ con = mdb.connect('54.200.253.128:3306', 'guhack', 'sammo', 'air_data')
 cur = con.cursor()
 
 def run(input):
-	cities = getCities(input['CountryTravellingTo'])
+	cities = getCities(input['countryTo'])
 	destination = randomCity(cities)
 	iataCodes = getIATAcodes(destination)
 	airportData['destination'] = destination
@@ -20,7 +20,7 @@ def run(input):
 	for row in iataCodes:
 		if (row[0] != ''):
 			airportData[row[0]] = {}
-	findMinFlightCosts(airportData['prices'], input['HomeCountry'], input['AirportLeavingFrom'], input['DepartureDate'])
+	findMinFlightCosts(airportData['prices'], 'gb', input['leavingAirport'], input['departDate'])
 	return airportData
 
 
@@ -114,13 +114,13 @@ def inPriceRange(max, livePriceResponse, itineraries):
     return itineraries
         
 def getCities(country):
-	cur.execute("SELECT City FROM Locations WHERE Country = '" + countryStart "'")
-	c cur.fetchall()
+	cur.execute("SELECT City FROM Locations WHERE Country = '" + country + "'")
+	c = cur.fetchall()
 	return c
 
 def getIATAcodes(city):
 	cur.execute("SELECT Iata FROM Locations WHERE City = '" + city + "'")
-	c cur.fetchall()
+	c = cur.fetchall()
 	return c
 
 def randomCity(cities):
