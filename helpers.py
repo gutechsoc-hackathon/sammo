@@ -1,16 +1,79 @@
-import urllib, urllib2, json
+import urllib, urllib2, json, random, MySQLdb as mdb
 
+con = mdb.connect('54.200.253.128:3306', 'guhack', 'sammo', 'air_data')
+cur = con.cursor()
 
-#Expects a max range, the dictionary and a sorted list(by price)
-def inPriceRange(max, livePriceResponse, itineraries):
+def run(input):
+	cities = getCities(input['CountryTravellingTo'])
+	destination = randomCity(cities)
+	iataCodes = getIATAcodes(destination)
+	airportData['destination'] = destination
+	airportData['prices'] = {}
+	for row in iataCodes:
+		if (row[0] != ''):
+			airportData[row[0]] = {}
+	findMinFlightCosts(airportData['prices'], input['HomeCountry'], input['AirportLeavingFrom'], input['DepartureDate'])
+	return airportData
+
+def run(input):
+    pass
+
+## for each airport                                         Andrew
+##      open the session with data for that city
+##      get the data
+##      if there are no flights available
+##          remove IATA code from list of airports
+##      else
+##          get the cheapest flight for airport and info of flight
+
+#Gets the cheapest flight to each airport
+def findMinFlightCost(dictionaryOfIATA, homeCountry, homeCurrency, leavingAirport, leavingDate):
+    for IATA in dictionaryOfIATA.keys():
+        session = helpers.createSession(homeCountry, homeCurrency, leavingAirport, IATA, leavingDate)
+        response = helpers.getLivePriceResponse(session)
+        if(len(response['Itineraries']) == 0):
+            del dictionaryOfIATA[IATA]
+        else:
+            dictionaryOfIATA[IATA]['Price'] = response['Itineraries'][0]['PricingOptions'][0]['Price']
+
+            ##### FIND THE CARRIER ###
+            #outboud has the outbound ID
+            outbound = response['Itineraries'][IATA]['OutboundLegId']
+            #Get the index of the leg that matches the outboundID
+            legIndex = getID(response['Legs'], outbound)
+            if(legIndex < 0):
+                return -1
+            #Get the departure time from the leg
+            dictionaryOfIATA[IATA]['DepartureTime'] = response['Legs'][legIndex]['Departure']
+            
+            #Get the carrier ID from the leg
+            carrierID = response['Legs'][legIndex]['Carriers'][0]
+            #Get the index of the carrier that matches the carrierID
+            carrierIndex = getID(response['Carriers'], carrierID)
+            if(carrierIndex < 0):
+                return  -1
+            #Get the Carrier's Name and Image
+            dictionaryOfIATA[IATA]['CarrierName'] = response['Carriers'][carrierIndex]['Name']
+            dictionaryOfIATA[IATA]['CarrierURL'] = response['Carriers']['ImageUrl']
+
+    return dictionaryOfIATA
+
+# Pass in a list that you wish to search for the ID
+def getID(list, ID):
     counter = 0
-    for i in itineraries:
-        if (max < livePriceResponse['Itineraries'][i]['PricingOptions'][0]['Price']):
-            itineraries[i] = []
-    return itineraries
+    #Loop through the legs until it matches the outbound ID
+    while(list[counter]['Id'] != ID and counter<len(list)):
+        counter+=1
+    #Error checking, will trigger if you have reached end of loop
+    #and you haven't found the leg
+    if(list[counter]['Id'] != ID):
+        print "Error: getID, " + ID
+        return -1
+    return counter            
 
 
-def createSession(country, currency, originPlace, destinationPlace, outboundDate, apikey="hck55686622578671415146356618825", locale="en-GB",\
+
+def createSession(country, originPlace, destinationPlace, outboundDate, currency='GBP', apikey="hck55686622578671415146356618825", locale="en-GB",\
                                         inboundDate = "", locationSchema = "Iata", cabinClass = "Economy", adults = "1", children = "0", infants = "0"):
         url = 'http://partners.api.skyscanner.net/apiservices/pricing/v1.0'
         values = {      'apikey' : apikey,
@@ -42,7 +105,28 @@ def getLivePriceResponse(location):
         rawJson = response.read()
         Json = json.loads(rawJson)
         return Json
+
+#Expects a max range, the dictionary and a sorted list(by price)
+def inPriceRange(max, livePriceResponse, itineraries):
+    counter = 0
+    for i in itineraries:
+        if (max < livePriceResponse['Itineraries'][i]['PricingOptions'][0]['Price']):
+            itineraries[i] = []
+    return itineraries
         
+def getCities(country):
+	cur.execute("SELECT City FROM Locations WHERE Country = '" + countryStart "'")
+	c cur.fetchall()
+	return c
+
+def getIATAcodes(city):
+	cur.execute("SELECT Iata FROM Locations WHERE City = '" + city + "'")
+	c cur.fetchall()
+	return c
+
+def randomCity(cities):
+	return random.choice(cites)[0]
+
 # DEPRECATED
 # #Expects a country, the dictionary and a list
 # #Modifies the itineraries list to remove the itineraries that

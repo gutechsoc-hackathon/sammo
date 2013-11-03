@@ -1,11 +1,13 @@
 import json, helpers, random
 
+# 54.200.253.128:3306
+
 #
 ## get input from user
-## get cities in country
-## choose a random city from country
-## get airport IATA codes in city
-## for each airport
+## get cities in country 									Michael
+## choose a random city from homeCountry					random.choice[cityList]
+## get airport IATA codes in cityList 						
+## for each airport 										Andrew
 ## 		open the session with data for that city
 ## 		get the data
 ##		if there are no flights available
@@ -14,6 +16,9 @@ import json, helpers, random
 ## 			get the cheapest flight for airport
 ## output the list of airports and cheapest flight data
 #
+
+# con = mdb.connect('54.200.253.128:3306', 'guhack', 'sammo', 'air_data')
+# cur = con.cursor()
 
 homeCountry = 'GB'
 homeCurrency = 'GBP'
