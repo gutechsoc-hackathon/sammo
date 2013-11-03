@@ -9,6 +9,7 @@ import urllib, urllib2, json, random, MySQLdb as mdb
 ##          get the cheapest flight for airport and info of flight
 
 con = mdb.connect('54.200.253.128:3306', 'guhack', 'sammo', 'air_data')
+# con = mdb.connect("Locations.sql")
 cur = con.cursor()
 
 def run(input):
