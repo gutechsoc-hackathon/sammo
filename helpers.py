@@ -12,9 +12,9 @@ def run(input):
 ##          get the cheapest flight for airport and info of flight
 
 #Gets the cheapest flight to each airport
-def findMinFlightCost(dictionaryOfIATA, homeCountry, homeCurrency, leavingAirport, leavingDate):
+def findMinFlightCost(dictionaryOfIATA, homeCountry, leavingAirport, leavingDate):
     for IATA in dictionaryOfIATA.keys():
-        session = helpers.createSession(homeCountry, homeCurrency, leavingAirport, IATA, leavingDate)
+        session = helpers.createSession(homeCountry, leavingAirport, IATA, leavingDate)
         response = helpers.getLivePriceResponse(session)
         if(len(response['Itineraries']) == 0):
             del dictionaryOfIATA[IATA]
