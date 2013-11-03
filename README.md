@@ -4,7 +4,8 @@ Challenge description in SkyscannerChallenge.txt
 
 Run application.py to run start hosting the webpage.
 
-PLAN, World tour planner - 
+PLAN, World tour planner
+==========
 User chooses their position
 User chooses destination city
 Map displays all airports that have a route to users current position and other info such as minimum price
