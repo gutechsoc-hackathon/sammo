@@ -15,9 +15,6 @@ def run(input):
 	findMinFlightCosts(airportData['prices'], input['HomeCountry'], input['AirportLeavingFrom'], input['DepartureDate'])
 	return airportData
 
-def run(input):
-    pass
-
 ## for each airport                                         Andrew
 ##      open the session with data for that city
 ##      get the data
